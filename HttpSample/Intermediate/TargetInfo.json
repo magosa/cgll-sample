@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "HttpSample",
+			"Path": "C:\\Users\\engdep\\Desktop\\HttpSample\\Source\\HttpSample.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "HttpSampleEditor",
+			"Path": "C:\\Users\\engdep\\Desktop\\HttpSample\\Source\\HttpSampleEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

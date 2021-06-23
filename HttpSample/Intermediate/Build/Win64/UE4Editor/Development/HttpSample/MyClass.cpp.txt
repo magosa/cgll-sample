@@ -1,0 +1,2 @@
+C:\Users\engdep\Desktop\HttpSample\Intermediate\Build\Win64\UE4Editor\Development\HttpSample\Definitions.HttpSample.h
+C:\Users\engdep\Desktop\HttpSample\Source\HttpSample\MyClass.h
