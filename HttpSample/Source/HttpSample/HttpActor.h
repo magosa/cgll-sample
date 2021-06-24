@@ -8,6 +8,9 @@
 #include "HttpManager.h"
 #include "HttpActor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFutabaOnEventDispather);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHttpRequestCompleted, const FString&, Response, bool, bSuccess);
 
 UENUM(BlueprintType)
 enum class FutabaRequestStatus : uint8
@@ -21,6 +24,7 @@ UCLASS()
 class HTTPSAMPLE_API AHttpActor : public AActor
 {
 	GENERATED_BODY()
+
 	
 public:	
 	// Sets default values for this actor's properties
@@ -47,6 +51,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void HandleRequestCompleted(FString ResponseString, bool bSuccess);
 
 public:	
 	// Called every frame
@@ -82,6 +88,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "futaba")
 		FString GetThings(FString BotPath);
 
+	UPROPERTY(BlueprintAssignable, Category = "futaba")
+		FFutabaOnEventDispather OnEventDispather;
+
 
 
 private:
@@ -91,7 +100,6 @@ private:
 	FString HostExt = "cgll-dev-app-extapi.azurewebsites.net";
 
 	FJsonObject RequestFutaba(TSharedRef<IHttpRequest> Request);
-
 	void AddCommonHeaders(TSharedRef<IHttpRequest> Request);
 
 };

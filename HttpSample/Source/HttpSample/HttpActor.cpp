@@ -134,25 +134,26 @@ void AHttpActor::AddCommonHeaders(TSharedRef<IHttpRequest> Request)
 FString AHttpActor::GetAccessToken(FString ConfigFilePath, FutabaRequestStatus& FutabaStatus)
 {
     const FString JsonFullPath = FPaths::GameSourceDir().Append(ConfigFilePath);
+    FString Message = "";
+    FutabaStatus = FutabaRequestStatus::User_Error;
 
-    auto LoadError = [&JsonFullPath, &FutabaStatus]()
+    auto LoadError = [&JsonFullPath, &FutabaStatus, &Message]()
     {
+        Message = "Failed load json file";
         UE_LOG(LogTemp, Error, TEXT("Failed LoadJson : %s"), *JsonFullPath);
-        FutabaStatus = FutabaRequestStatus::User_Error;
         return nullptr;
     };
 
     FString loadFileString;
     if (FFileHelper::LoadFileToString(loadFileString, *JsonFullPath) == false)
     {
-        FutabaStatus = FutabaRequestStatus::User_Error;
+        Message = "Failed convert json file to FString";
         LoadError();
     }
 
     const auto JsonReader = TJsonReaderFactory<TCHAR>::Create(loadFileString);
     TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
 
-    FString Message = JsonFullPath;
 
     if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
     {
@@ -177,43 +178,43 @@ FString AHttpActor::GetAccessToken(FString ConfigFilePath, FutabaRequestStatus& 
         Request->SetHeader(TEXT("X-NEDO-CLIENT-SECRET"), JsonObject->GetStringField("client_secret"));
 
         // Response from API
-        FJsonObject Response = RequestFutaba(Request);
+        TSharedPtr<FJsonObject> ResponseJson;
+        Request->OnProcessRequestComplete().BindLambda([&](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
+            Message = Response->GetContentAsString();
+            TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+            // Jsonオブジェクトをデシリアライズ
+            if (bWasSuccessful && Response->GetResponseCode() >= 200 && Response->GetResponseCode() < 300 && FJsonSerializer::Deserialize(Reader, ResponseJson))
+            {
+                AHttpActor::AccessToken = ResponseJson->GetStringField("access_token");
+                AHttpActor::RefreshToken = ResponseJson->GetStringField("refresh_token");
 
+                TSharedPtr<FJsonObject> Buffer = MakeShareable(new FJsonObject);
+                Buffer->SetStringField("client_id", JsonObject->GetStringField("client_id"));
+                Buffer->SetStringField("client_secret", JsonObject->GetStringField("client_secret"));
+                Buffer->SetStringField("access_token", AHttpActor::AccessToken);
+                Buffer->SetStringField("refresh_token", AHttpActor::RefreshToken);
 
-        if (Response.HasField("access_token") && Response.HasField("refresh_token"))
-        {
-            AHttpActor::AccessToken = Response.GetStringField("access_token");
-            AHttpActor::RefreshToken = Response.GetStringField("refresh_token");
+                // Create writer for file out
+                FString OutPutString;
+                TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutPutString);
 
-            TSharedPtr<FJsonObject> Buffer = MakeShareable(new FJsonObject);
-            Buffer->SetStringField("client_id", JsonObject->GetStringField("client_id"));
-            Buffer->SetStringField("client_secret", JsonObject->GetStringField("client_secret"));
-            Buffer->SetStringField("access_token", AHttpActor::AccessToken);
-            Buffer->SetStringField("refresh_token", AHttpActor::RefreshToken);
+                // Write json object into FString
+                FJsonSerializer::Serialize(Buffer.ToSharedRef(), Writer);
+                FFileHelper::SaveStringToFile(OutPutString, *JsonFullPath);
 
-            // Create writer for file out
-            FString OutPutString;
-            TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutPutString);
-
-            // Write json object into FString
-            FJsonSerializer::Serialize(Buffer.ToSharedRef(), Writer);
-            FFileHelper::SaveStringToFile(OutPutString, *JsonFullPath);
-            
-            Message = Response.GetStringField("refresh_token");
-            FutabaStatus = FutabaRequestStatus::Success;
-        }
-        else if (Response.HasField("Status"))
-        {
-            Message = Response.GetStringField("ResponseContent");
-            if (Response.GetNumberField("StatusCode") >= 500)
+                FutabaStatus = FutabaRequestStatus::Success;
+            }
+            else if (Response->GetResponseCode() >= 500)
             {
                 FutabaStatus = FutabaRequestStatus::Platform_Error;
             }
             else
             {
                 FutabaStatus = FutabaRequestStatus::User_Error;
-            }
-        }
+            }});
+        Request->ProcessRequest();
+        FHttpModule::Get().GetHttpManager().Flush(false);
+
     }   
         return Message;
 }
