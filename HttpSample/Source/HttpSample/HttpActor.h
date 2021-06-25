@@ -88,6 +88,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "futaba")
 		void GetThings(FString BotPath);
 
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetThingsProperties(FString tdid);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetThingsPropertiesWithAlias(FString tdid);
+
 	UPROPERTY(BlueprintAssignable, Category = "futaba")
 		FFutabaOnEventDispather OnEventDispather;
 

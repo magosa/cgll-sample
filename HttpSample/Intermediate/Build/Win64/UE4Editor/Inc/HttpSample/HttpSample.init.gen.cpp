@@ -27,7 +27,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpSample_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0xC85C8F3D,
+				0xE7183D56,
 				0x0444576D,
 				METADATA_PARAMS(nullptr, 0)
 			};

@@ -41,6 +41,8 @@ static inline void FFutabaOnEventDispather_DelegateWrapper(const FMulticastScrip
 #define HttpSample_Source_HttpSample_HttpActor_h_26_SPARSE_DATA
 #define HttpSample_Source_HttpSample_HttpActor_h_26_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execGetThingsPropertiesWithAlias); \
+	DECLARE_FUNCTION(execGetThingsProperties); \
 	DECLARE_FUNCTION(execGetThings); \
 	DECLARE_FUNCTION(execSetAccessToken); \
 	DECLARE_FUNCTION(execSetAccessTokenByConfigFile); \
@@ -53,6 +55,8 @@ static inline void FFutabaOnEventDispather_DelegateWrapper(const FMulticastScrip
 
 #define HttpSample_Source_HttpSample_HttpActor_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execGetThingsPropertiesWithAlias); \
+	DECLARE_FUNCTION(execGetThingsProperties); \
 	DECLARE_FUNCTION(execGetThings); \
 	DECLARE_FUNCTION(execSetAccessToken); \
 	DECLARE_FUNCTION(execSetAccessTokenByConfigFile); \

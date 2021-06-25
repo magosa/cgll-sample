@@ -308,9 +308,28 @@ void AHttpActor::SetAccessToken(FString Id, FString Secret, FString Access_Token
 
 void AHttpActor::GetThings(FString BotPath)
 {
-    // Create HTTP Request
     TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
     Request->SetURL("https://" + AHttpActor::HostHot + "/api/things?path=" + BotPath);
+    Request->SetVerb("GET");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::GetThingsProperties(FString tdid)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things/" + tdid + "/properties");
+    Request->SetVerb("GET");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::GetThingsPropertiesWithAlias(FString tdid)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things/" + tdid + "/propertiesEx");
     Request->SetVerb("GET");
     AddCommonHeaders(Request);
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
