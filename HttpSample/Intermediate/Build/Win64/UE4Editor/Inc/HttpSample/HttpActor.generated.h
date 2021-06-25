@@ -17,14 +17,16 @@ enum class FutabaRequestStatus : uint8;
 #define HttpSample_Source_HttpSample_HttpActor_h_13_DELEGATE \
 struct _Script_HttpSample_eventOnHttpRequestCompleted_Parms \
 { \
+	bool bSuccessful; \
+	int32 ResponseCode; \
 	FString Response; \
-	bool bSuccess; \
 }; \
-static inline void FOnHttpRequestCompleted_DelegateWrapper(const FMulticastScriptDelegate& OnHttpRequestCompleted, const FString& Response, bool bSuccess) \
+static inline void FOnHttpRequestCompleted_DelegateWrapper(const FMulticastScriptDelegate& OnHttpRequestCompleted, bool bSuccessful, int32 ResponseCode, const FString& Response) \
 { \
 	_Script_HttpSample_eventOnHttpRequestCompleted_Parms Parms; \
+	Parms.bSuccessful=bSuccessful ? true : false; \
+	Parms.ResponseCode=ResponseCode; \
 	Parms.Response=Response; \
-	Parms.bSuccess=bSuccess ? true : false; \
 	OnHttpRequestCompleted.ProcessMulticastDelegate<UObject>(&Parms); \
 }
 

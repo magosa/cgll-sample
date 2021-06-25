@@ -25,35 +25,39 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 	{
 		struct _Script_HttpSample_eventOnHttpRequestCompleted_Parms
 		{
+			bool bSuccessful;
+			int32 ResponseCode;
 			FString Response;
-			bool bSuccess;
 		};
-		static void NewProp_bSuccess_SetBit(void* Obj);
-		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bSuccess;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Response_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FStrPropertyParams NewProp_Response;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_ResponseCode;
+		static void NewProp_bSuccessful_SetBit(void* Obj);
+		static const UE4CodeGen_Private::FBoolPropertyParams NewProp_bSuccessful;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	void Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccess_SetBit(void* Obj)
-	{
-		((_Script_HttpSample_eventOnHttpRequestCompleted_Parms*)Obj)->bSuccess = 1;
-	}
-	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccess = { "bSuccess", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(_Script_HttpSample_eventOnHttpRequestCompleted_Parms), &Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccess_SetBit, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_Response_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
 	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_Response = { "Response", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(_Script_HttpSample_eventOnHttpRequestCompleted_Parms, Response), METADATA_PARAMS(Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_Response_MetaData, UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_Response_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_ResponseCode = { "ResponseCode", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(_Script_HttpSample_eventOnHttpRequestCompleted_Parms, ResponseCode), METADATA_PARAMS(nullptr, 0) };
+	void Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccessful_SetBit(void* Obj)
+	{
+		((_Script_HttpSample_eventOnHttpRequestCompleted_Parms*)Obj)->bSuccessful = 1;
+	}
+	const UE4CodeGen_Private::FBoolPropertyParams Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccessful = { "bSuccessful", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Bool | UE4CodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, sizeof(bool), sizeof(_Script_HttpSample_eventOnHttpRequestCompleted_Parms), &Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccessful_SetBit, METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccess,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_Response,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_ResponseCode,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::NewProp_bSuccessful,
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature_Statics::Function_MetaDataParams[] = {
@@ -152,7 +156,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		P_GET_PROPERTY(FStrProperty,Z_Param_BotPath);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		*(FString*)Z_Param__Result=P_THIS->GetThings(Z_Param_BotPath);
+		P_THIS->GetThings(Z_Param_BotPath);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(AHttpActor::execSetAccessToken)
@@ -279,9 +283,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		struct HttpActor_eventGetThings_Parms
 		{
 			FString BotPath;
-			FString ReturnValue;
 		};
-		static const UE4CodeGen_Private::FStrPropertyParams NewProp_ReturnValue;
 		static const UE4CodeGen_Private::FStrPropertyParams NewProp_BotPath;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
@@ -289,10 +291,8 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThings_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_BotPath = { "BotPath", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThings_Parms, BotPath), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetThings_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_ReturnValue,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_BotPath,
 	};
 #if WITH_METADATA
@@ -531,6 +531,10 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_OnRequestCompleted_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FMulticastDelegatePropertyParams NewProp_OnRequestCompleted;
+#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_OnEventDispather_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FMulticastDelegatePropertyParams NewProp_OnEventDispather;
@@ -564,7 +568,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AHttpActor_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_AHttpActor_GetAccessToken, "GetAccessToken" }, // 141774289
-		{ &Z_Construct_UFunction_AHttpActor_GetThings, "GetThings" }, // 2232477552
+		{ &Z_Construct_UFunction_AHttpActor_GetThings, "GetThings" }, // 1787611722
 		{ &Z_Construct_UFunction_AHttpActor_MyHttpMethod, "MyHttpMethod" }, // 854605711
 		{ &Z_Construct_UFunction_AHttpActor_MyHttpMethodLambda, "MyHttpMethodLambda" }, // 7337026
 		{ &Z_Construct_UFunction_AHttpActor_SetAccessToken, "SetAccessToken" }, // 3563795580
@@ -578,6 +582,13 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		{ "ModuleRelativePath", "HttpActor.h" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AHttpActor_Statics::NewProp_OnRequestCompleted_MetaData[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_AHttpActor_Statics::NewProp_OnRequestCompleted = { "OnRequestCompleted", nullptr, (EPropertyFlags)0x0010000010080000, UE4CodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AHttpActor, OnRequestCompleted), Z_Construct_UDelegateFunction_HttpSample_OnHttpRequestCompleted__DelegateSignature, METADATA_PARAMS(Z_Construct_UClass_AHttpActor_Statics::NewProp_OnRequestCompleted_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AHttpActor_Statics::NewProp_OnRequestCompleted_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AHttpActor_Statics::NewProp_OnEventDispather_MetaData[] = {
 		{ "Category", "futaba" },
@@ -622,6 +633,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 #endif
 	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UClass_AHttpActor_Statics::NewProp_ConnectionTarget = { "ConnectionTarget", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AHttpActor, ConnectionTarget), METADATA_PARAMS(Z_Construct_UClass_AHttpActor_Statics::NewProp_ConnectionTarget_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AHttpActor_Statics::NewProp_ConnectionTarget_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AHttpActor_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AHttpActor_Statics::NewProp_OnRequestCompleted,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AHttpActor_Statics::NewProp_OnEventDispather,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AHttpActor_Statics::NewProp_RefreshToken,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AHttpActor_Statics::NewProp_AccessToken,
@@ -656,7 +668,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AHttpActor, 1576151610);
+	IMPLEMENT_CLASS(AHttpActor, 1730801051);
 	template<> HTTPSAMPLE_API UClass* StaticClass<AHttpActor>()
 	{
 		return AHttpActor::StaticClass();

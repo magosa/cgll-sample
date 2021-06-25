@@ -185,12 +185,14 @@ FString AHttpActor::GetAccessToken(FString ConfigFilePath, FutabaRequestStatus& 
             // Jsonオブジェクトをデシリアライズ
             if (bWasSuccessful && Response->GetResponseCode() >= 200 && Response->GetResponseCode() < 300 && FJsonSerializer::Deserialize(Reader, ResponseJson))
             {
+                AHttpActor::ClientId = JsonObject->GetStringField("client_id");
+                AHttpActor::ClientSecret = JsonObject->GetStringField("client_secret");
                 AHttpActor::AccessToken = ResponseJson->GetStringField("access_token");
                 AHttpActor::RefreshToken = ResponseJson->GetStringField("refresh_token");
 
                 TSharedPtr<FJsonObject> Buffer = MakeShareable(new FJsonObject);
-                Buffer->SetStringField("client_id", JsonObject->GetStringField("client_id"));
-                Buffer->SetStringField("client_secret", JsonObject->GetStringField("client_secret"));
+                Buffer->SetStringField("client_id", AHttpActor::ClientId);
+                Buffer->SetStringField("client_secret", AHttpActor::ClientSecret);
                 Buffer->SetStringField("access_token", AHttpActor::AccessToken);
                 Buffer->SetStringField("refresh_token", AHttpActor::RefreshToken);
 
@@ -304,28 +306,26 @@ void AHttpActor::SetAccessToken(FString Id, FString Secret, FString Access_Token
     
 }
 
-FString AHttpActor::GetThings(FString BotPath)
+void AHttpActor::GetThings(FString BotPath)
 {
     // Create HTTP Request
     TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
     Request->SetURL("https://" + AHttpActor::HostHot + "/api/things?path=" + BotPath);
     Request->SetVerb("GET");
     AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
 
-    // Response from API
-    FJsonObject Response = RequestFutaba(Request);
-
-    if (Response.HasField("Status"))
+void AHttpActor::HandleRequestCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+    if (bWasSuccessful && Response->GetResponseCode() >= 200 && Response->GetResponseCode() < 300)
     {
-        return Response.GetStringField("ResponseContent");
+        AHttpActor::OnRequestCompleted.Broadcast(true, Response->GetResponseCode(), Response->GetContentAsString());
     }
     else
     {
-        TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-        *JsonObject = Response;
-        FString OutputString;
-        TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&OutputString);
-        FJsonSerializer::Serialize(JsonObject.ToSharedRef(), JsonWriter);
-        return OutputString;
+        AHttpActor::OnRequestCompleted.Broadcast(false, Response->GetResponseCode(), Response->GetContentAsString());
     }
+    
 }

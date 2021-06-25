@@ -3,7 +3,7 @@
   Creating makefile for HttpSampleEditor (no existing makefile)
   Parsing headers for HttpSampleEditor
     Running UnrealHeaderTool "C:\Users\engdep\Desktop\cgll-sample\HttpSample\HttpSample.uproject" "C:\Users\engdep\Desktop\cgll-sample\HttpSample\Intermediate\Build\Win64\HttpSampleEditor\Development\HttpSampleEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -abslog="C:\Users\engdep\AppData\Local\UnrealBuildTool\Log_UHT.txt" -installed
-  Reflection code generated for HttpSampleEditor in 4.5945122 seconds
+  Reflection code generated for HttpSampleEditor in 4.6864874 seconds
   Building HttpSampleEditor...
   Using Visual Studio 2019 14.29.30037 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
   Building 10 actions with 12 processes...
@@ -19,5 +19,5 @@
     [9/10] UE4Editor-HttpSample.dll
        ���C�u���� C:\Users\engdep\Desktop\cgll-sample\HttpSample\Intermediate\Build\Win64\UE4Editor\Development\HttpSample\UE4Editor-HttpSample.suppressed.lib �ƃI�u�W�F�N�g C:\Users\engdep\Desktop\cgll-sample\HttpSample\Intermediate\Build\Win64\UE4Editor\Development\HttpSample\UE4Editor-HttpSample.suppressed.exp ��쐬��
     [10/10] HttpSampleEditor.target
-  Total time in Parallel executor: 21.60 seconds
-  Total execution time: 44.56 seconds
+  Total time in Parallel executor: 20.95 seconds
+  Total execution time: 27.70 seconds

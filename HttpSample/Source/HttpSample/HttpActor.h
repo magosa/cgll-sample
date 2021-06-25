@@ -10,7 +10,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFutabaOnEventDispather);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHttpRequestCompleted, const FString&, Response, bool, bSuccess);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnHttpRequestCompleted, bool, bSuccessful, int32, ResponseCode, const FString&, Response);
 
 UENUM(BlueprintType)
 enum class FutabaRequestStatus : uint8
@@ -52,7 +52,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void HandleRequestCompleted(FString ResponseString, bool bSuccess);
+	void HandleRequestCompleted(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 public:	
 	// Called every frame
@@ -86,10 +86,13 @@ public:
 		void SetAccessToken(FString Id, FString Secret, FString Access_Token, FString Refresh_Token);
 
 	UFUNCTION(BlueprintCallable, Category = "futaba")
-		FString GetThings(FString BotPath);
+		void GetThings(FString BotPath);
 
 	UPROPERTY(BlueprintAssignable, Category = "futaba")
 		FFutabaOnEventDispather OnEventDispather;
+
+	UPROPERTY(BlueprintAssignable, Category = "futaba")
+		FOnHttpRequestCompleted OnRequestCompleted;
 
 
 
