@@ -85,14 +85,34 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "futaba")
 		void SetAccessToken(FString Id, FString Secret, FString Access_Token, FString Refresh_Token);
 
+	//Hot API
 	UFUNCTION(BlueprintCallable, Category = "futaba")
-		void GetThings(FString BotPath);
+		void GetMetadata(FString bot_path);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetMetadataWithQuery(FString query_data);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void SetMetadataProperty(FString edit_data);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetThings(FString bot_path);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetThingsWithQuery(FString query_data);
 
 	UFUNCTION(BlueprintCallable, Category = "futaba")
 		void GetThingsProperties(FString tdid);
 
 	UFUNCTION(BlueprintCallable, Category = "futaba")
 		void GetThingsPropertiesWithAlias(FString tdid);
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void SetThingsProperty(FString tdid, FString pointid, FString edit_data);
+
+
+	UFUNCTION(BlueprintCallable, Category = "futaba")
+		void GetThingsProperty(FString tdid, FString pointid);
 
 	UPROPERTY(BlueprintAssignable, Category = "futaba")
 		FFutabaOnEventDispather OnEventDispather;

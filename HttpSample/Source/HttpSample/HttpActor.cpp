@@ -306,13 +306,57 @@ void AHttpActor::SetAccessToken(FString Id, FString Secret, FString Access_Token
     
 }
 
-void AHttpActor::GetThings(FString BotPath)
+void AHttpActor::GetMetadata(FString bot_path)
 {
     TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
-    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things?path=" + BotPath);
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/metadata?path=" + bot_path);
     Request->SetVerb("GET");
     AddCommonHeaders(Request);
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::GetMetadataWithQuery(FString query_data)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/metadata");
+    Request->SetVerb("POST");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->SetContentAsString(query_data);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::SetMetadataProperty(FString edit_data_json_string)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/metadata");
+    Request->SetVerb("PUT");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->SetContentAsString(edit_data_json_string);
+    Request->ProcessRequest();
+}
+
+
+void AHttpActor::GetThings(FString bot_path)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things?path=" + bot_path);
+    Request->SetVerb("GET");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::GetThingsWithQuery(FString query_data)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things");
+    Request->SetVerb("POST");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->SetContentAsString(query_data);
     Request->ProcessRequest();
 }
 
@@ -326,6 +370,16 @@ void AHttpActor::GetThingsProperties(FString tdid)
     Request->ProcessRequest();
 }
 
+void AHttpActor::GetThingsProperty(FString tdid, FString pointid)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things/" + tdid + "/properties/" + pointid);
+    Request->SetVerb("GET");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
 void AHttpActor::GetThingsPropertiesWithAlias(FString tdid)
 {
     TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
@@ -333,6 +387,17 @@ void AHttpActor::GetThingsPropertiesWithAlias(FString tdid)
     Request->SetVerb("GET");
     AddCommonHeaders(Request);
     Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->ProcessRequest();
+}
+
+void AHttpActor::SetThingsProperty(FString tdid, FString pointid, FString edit_data)
+{
+    TSharedRef<IHttpRequest> Request = AHttpActor::Http->CreateRequest();
+    Request->SetURL("https://" + AHttpActor::HostHot + "/api/things/" + tdid + L"/properties/" + pointid);
+    Request->SetVerb("PUT");
+    AddCommonHeaders(Request);
+    Request->OnProcessRequestComplete().BindUObject(this, &AHttpActor::HandleRequestCompleted);
+    Request->SetContentAsString(edit_data);
     Request->ProcessRequest();
 }
 

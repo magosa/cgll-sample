@@ -151,6 +151,25 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		}
 		return ReturnEnum;
 	}
+	DEFINE_FUNCTION(AHttpActor::execGetThingsProperty)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_tdid);
+		P_GET_PROPERTY(FStrProperty,Z_Param_pointid);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->GetThingsProperty(Z_Param_tdid,Z_Param_pointid);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AHttpActor::execSetThingsProperty)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_tdid);
+		P_GET_PROPERTY(FStrProperty,Z_Param_pointid);
+		P_GET_PROPERTY(FStrProperty,Z_Param_edit_data);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->SetThingsProperty(Z_Param_tdid,Z_Param_pointid,Z_Param_edit_data);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(AHttpActor::execGetThingsPropertiesWithAlias)
 	{
 		P_GET_PROPERTY(FStrProperty,Z_Param_tdid);
@@ -167,12 +186,44 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		P_THIS->GetThingsProperties(Z_Param_tdid);
 		P_NATIVE_END;
 	}
-	DEFINE_FUNCTION(AHttpActor::execGetThings)
+	DEFINE_FUNCTION(AHttpActor::execGetThingsWithQuery)
 	{
-		P_GET_PROPERTY(FStrProperty,Z_Param_BotPath);
+		P_GET_PROPERTY(FStrProperty,Z_Param_query_data);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->GetThings(Z_Param_BotPath);
+		P_THIS->GetThingsWithQuery(Z_Param_query_data);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AHttpActor::execGetThings)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_bot_path);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->GetThings(Z_Param_bot_path);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AHttpActor::execSetMetadataProperty)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_edit_data);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->SetMetadataProperty(Z_Param_edit_data);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AHttpActor::execGetMetadataWithQuery)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_query_data);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->GetMetadataWithQuery(Z_Param_query_data);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AHttpActor::execGetMetadata)
+	{
+		P_GET_PROPERTY(FStrProperty,Z_Param_bot_path);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->GetMetadata(Z_Param_bot_path);
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(AHttpActor::execSetAccessToken)
@@ -239,14 +290,20 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		UClass* Class = AHttpActor::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "GetAccessToken", &AHttpActor::execGetAccessToken },
+			{ "GetMetadata", &AHttpActor::execGetMetadata },
+			{ "GetMetadataWithQuery", &AHttpActor::execGetMetadataWithQuery },
 			{ "GetThings", &AHttpActor::execGetThings },
 			{ "GetThingsProperties", &AHttpActor::execGetThingsProperties },
 			{ "GetThingsPropertiesWithAlias", &AHttpActor::execGetThingsPropertiesWithAlias },
+			{ "GetThingsProperty", &AHttpActor::execGetThingsProperty },
+			{ "GetThingsWithQuery", &AHttpActor::execGetThingsWithQuery },
 			{ "MyHttpMethod", &AHttpActor::execMyHttpMethod },
 			{ "MyHttpMethodLambda", &AHttpActor::execMyHttpMethodLambda },
 			{ "SetAccessToken", &AHttpActor::execSetAccessToken },
 			{ "SetAccessTokenByConfigFile", &AHttpActor::execSetAccessTokenByConfigFile },
 			{ "SetHostURL", &AHttpActor::execSetHostURL },
+			{ "SetMetadataProperty", &AHttpActor::execSetMetadataProperty },
+			{ "SetThingsProperty", &AHttpActor::execSetThingsProperty },
 			{ "ShowConfiguration", &AHttpActor::execShowConfiguration },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
@@ -296,22 +353,90 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_AHttpActor_GetThings_Statics
+	struct Z_Construct_UFunction_AHttpActor_GetMetadata_Statics
 	{
-		struct HttpActor_eventGetThings_Parms
+		struct HttpActor_eventGetMetadata_Parms
 		{
-			FString BotPath;
+			FString bot_path;
 		};
-		static const UE4CodeGen_Private::FStrPropertyParams NewProp_BotPath;
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_bot_path;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UE4CodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_BotPath = { "BotPath", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThings_Parms, BotPath), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::NewProp_bot_path = { "bot_path", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetMetadata_Parms, bot_path), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::NewProp_bot_path,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "Comment", "//Hot API\n" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+		{ "ToolTip", "Hot API" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "GetMetadata", nullptr, nullptr, sizeof(HttpActor_eventGetMetadata_Parms), Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_GetMetadata()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_GetMetadata_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics
+	{
+		struct HttpActor_eventGetMetadataWithQuery_Parms
+		{
+			FString query_data;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_query_data;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::NewProp_query_data = { "query_data", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetMetadataWithQuery_Parms, query_data), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::NewProp_query_data,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "GetMetadataWithQuery", nullptr, nullptr, sizeof(HttpActor_eventGetMetadataWithQuery_Parms), Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AHttpActor_GetThings_Statics
+	{
+		struct HttpActor_eventGetThings_Parms
+		{
+			FString bot_path;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_bot_path;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_bot_path = { "bot_path", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThings_Parms, bot_path), METADATA_PARAMS(nullptr, 0) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetThings_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_BotPath,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThings_Statics::NewProp_bot_path,
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_GetThings_Statics::Function_MetaDataParams[] = {
@@ -392,6 +517,76 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		if (!ReturnFunction)
 		{
 			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_GetThingsPropertiesWithAlias_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics
+	{
+		struct HttpActor_eventGetThingsProperty_Parms
+		{
+			FString tdid;
+			FString pointid;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_pointid;
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_tdid;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::NewProp_pointid = { "pointid", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThingsProperty_Parms, pointid), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::NewProp_tdid = { "tdid", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThingsProperty_Parms, tdid), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::NewProp_pointid,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::NewProp_tdid,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "GetThingsProperty", nullptr, nullptr, sizeof(HttpActor_eventGetThingsProperty_Parms), Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_GetThingsProperty()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_GetThingsProperty_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics
+	{
+		struct HttpActor_eventGetThingsWithQuery_Parms
+		{
+			FString query_data;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_query_data;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::NewProp_query_data = { "query_data", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventGetThingsWithQuery_Parms, query_data), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::NewProp_query_data,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "GetThingsWithQuery", nullptr, nullptr, sizeof(HttpActor_eventGetThingsWithQuery_Parms), Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_GetThingsWithQuery()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_GetThingsWithQuery_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -580,6 +775,80 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics
+	{
+		struct HttpActor_eventSetMetadataProperty_Parms
+		{
+			FString edit_data;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_edit_data;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::NewProp_edit_data = { "edit_data", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventSetMetadataProperty_Parms, edit_data), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::NewProp_edit_data,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "SetMetadataProperty", nullptr, nullptr, sizeof(HttpActor_eventSetMetadataProperty_Parms), Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_SetMetadataProperty()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_SetMetadataProperty_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics
+	{
+		struct HttpActor_eventSetThingsProperty_Parms
+		{
+			FString tdid;
+			FString pointid;
+			FString edit_data;
+		};
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_edit_data;
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_pointid;
+		static const UE4CodeGen_Private::FStrPropertyParams NewProp_tdid;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_edit_data = { "edit_data", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventSetThingsProperty_Parms, edit_data), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_pointid = { "pointid", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventSetThingsProperty_Parms, pointid), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FStrPropertyParams Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_tdid = { "tdid", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(HttpActor_eventSetThingsProperty_Parms, tdid), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_edit_data,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_pointid,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::NewProp_tdid,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::Function_MetaDataParams[] = {
+		{ "Category", "futaba" },
+		{ "ModuleRelativePath", "HttpActor.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AHttpActor, nullptr, "SetThingsProperty", nullptr, nullptr, sizeof(HttpActor_eventSetThingsProperty_Parms), Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AHttpActor_SetThingsProperty()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AHttpActor_SetThingsProperty_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_AHttpActor_ShowConfiguration_Statics
 	{
 #if WITH_METADATA
@@ -652,14 +921,20 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_AHttpActor_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_AHttpActor_GetAccessToken, "GetAccessToken" }, // 141774289
-		{ &Z_Construct_UFunction_AHttpActor_GetThings, "GetThings" }, // 1787611722
+		{ &Z_Construct_UFunction_AHttpActor_GetMetadata, "GetMetadata" }, // 760527145
+		{ &Z_Construct_UFunction_AHttpActor_GetMetadataWithQuery, "GetMetadataWithQuery" }, // 789429057
+		{ &Z_Construct_UFunction_AHttpActor_GetThings, "GetThings" }, // 2184544780
 		{ &Z_Construct_UFunction_AHttpActor_GetThingsProperties, "GetThingsProperties" }, // 2146534522
 		{ &Z_Construct_UFunction_AHttpActor_GetThingsPropertiesWithAlias, "GetThingsPropertiesWithAlias" }, // 3526480255
+		{ &Z_Construct_UFunction_AHttpActor_GetThingsProperty, "GetThingsProperty" }, // 2663006231
+		{ &Z_Construct_UFunction_AHttpActor_GetThingsWithQuery, "GetThingsWithQuery" }, // 79929775
 		{ &Z_Construct_UFunction_AHttpActor_MyHttpMethod, "MyHttpMethod" }, // 854605711
 		{ &Z_Construct_UFunction_AHttpActor_MyHttpMethodLambda, "MyHttpMethodLambda" }, // 7337026
 		{ &Z_Construct_UFunction_AHttpActor_SetAccessToken, "SetAccessToken" }, // 3563795580
 		{ &Z_Construct_UFunction_AHttpActor_SetAccessTokenByConfigFile, "SetAccessTokenByConfigFile" }, // 3964117008
 		{ &Z_Construct_UFunction_AHttpActor_SetHostURL, "SetHostURL" }, // 872717599
+		{ &Z_Construct_UFunction_AHttpActor_SetMetadataProperty, "SetMetadataProperty" }, // 3592407777
+		{ &Z_Construct_UFunction_AHttpActor_SetThingsProperty, "SetThingsProperty" }, // 1870590858
 		{ &Z_Construct_UFunction_AHttpActor_ShowConfiguration, "ShowConfiguration" }, // 1889539480
 	};
 #if WITH_METADATA
@@ -754,7 +1029,7 @@ void EmptyLinkFunctionForGeneratedCodeHttpActor() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AHttpActor, 61603988);
+	IMPLEMENT_CLASS(AHttpActor, 155903307);
 	template<> HTTPSAMPLE_API UClass* StaticClass<AHttpActor>()
 	{
 		return AHttpActor::StaticClass();

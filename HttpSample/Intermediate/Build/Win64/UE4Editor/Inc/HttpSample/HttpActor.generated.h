@@ -41,9 +41,15 @@ static inline void FFutabaOnEventDispather_DelegateWrapper(const FMulticastScrip
 #define HttpSample_Source_HttpSample_HttpActor_h_26_SPARSE_DATA
 #define HttpSample_Source_HttpSample_HttpActor_h_26_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execGetThingsProperty); \
+	DECLARE_FUNCTION(execSetThingsProperty); \
 	DECLARE_FUNCTION(execGetThingsPropertiesWithAlias); \
 	DECLARE_FUNCTION(execGetThingsProperties); \
+	DECLARE_FUNCTION(execGetThingsWithQuery); \
 	DECLARE_FUNCTION(execGetThings); \
+	DECLARE_FUNCTION(execSetMetadataProperty); \
+	DECLARE_FUNCTION(execGetMetadataWithQuery); \
+	DECLARE_FUNCTION(execGetMetadata); \
 	DECLARE_FUNCTION(execSetAccessToken); \
 	DECLARE_FUNCTION(execSetAccessTokenByConfigFile); \
 	DECLARE_FUNCTION(execGetAccessToken); \
@@ -55,9 +61,15 @@ static inline void FFutabaOnEventDispather_DelegateWrapper(const FMulticastScrip
 
 #define HttpSample_Source_HttpSample_HttpActor_h_26_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execGetThingsProperty); \
+	DECLARE_FUNCTION(execSetThingsProperty); \
 	DECLARE_FUNCTION(execGetThingsPropertiesWithAlias); \
 	DECLARE_FUNCTION(execGetThingsProperties); \
+	DECLARE_FUNCTION(execGetThingsWithQuery); \
 	DECLARE_FUNCTION(execGetThings); \
+	DECLARE_FUNCTION(execSetMetadataProperty); \
+	DECLARE_FUNCTION(execGetMetadataWithQuery); \
+	DECLARE_FUNCTION(execGetMetadata); \
 	DECLARE_FUNCTION(execSetAccessToken); \
 	DECLARE_FUNCTION(execSetAccessTokenByConfigFile); \
 	DECLARE_FUNCTION(execGetAccessToken); \
